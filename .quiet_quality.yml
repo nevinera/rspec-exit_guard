@@ -1,0 +1,7 @@
+---
+default_tools: ["standardrb", "rubocop", "markdown_lint", "rspec"]
+executor: concurrent
+comparison_branch: main
+logging: light
+changed_files: false
+filter_messages: false
