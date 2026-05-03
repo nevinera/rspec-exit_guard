@@ -12,6 +12,13 @@ module RSpec
         end
       end
 
+      def mock_exit_module_call_for_exit_guard(target, method_name)
+        allow(target).to receive(method_name) do |*args|
+          location = caller.find { |l| !l.include?("/gems/") }
+          throw :exit_guard, {call: exit_guard_call_string(method_name, args), location: location}
+        end
+      end
+
       def catch_exit_guard_throw
         exit_call = catch(:exit_guard) do
           yield
@@ -53,5 +60,7 @@ RSpec.configure do |config|
     mock_exit_call_for_exit_guard(Object, :exit)
     mock_exit_call_for_exit_guard(Object, :exit!)
     mock_exit_call_for_exit_guard(Object, :abort)
+    mock_exit_module_call_for_exit_guard(Kernel, :exit)
+    mock_exit_module_call_for_exit_guard(Kernel, :abort)
   end
 end

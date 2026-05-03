@@ -72,4 +72,43 @@ RSpec.describe RSpec::ExitGuard::Helpers do
       expect(result[:location]).to include("helpers_spec.rb")
     end
   end
+
+  describe "#mock_exit_module_call_for_exit_guard with Kernel.exit" do
+    # mock_exit_module_call_for_exit_guard(Kernel, :exit) is already active via the before hook,
+    # so we call Kernel.exit directly and rely on the inner catch to intercept the throw.
+
+    it "throws :exit_guard with a formatted call string" do
+      result = catch(:exit_guard) { Kernel.exit(42) }
+      expect(result[:call]).to eq("exit(42)")
+    end
+
+    it "throws :exit_guard with 'exit (no args)' when called without an argument" do
+      result = catch(:exit_guard) { Kernel.exit }
+      expect(result[:call]).to eq("exit (no args)")
+    end
+
+    it "includes the call location in the thrown data" do
+      result = catch(:exit_guard) { Kernel.exit(0) }
+      expect(result[:location]).to include("helpers_spec.rb")
+    end
+  end
+
+  describe "#mock_exit_module_call_for_exit_guard with Kernel.abort" do
+    # mock_exit_module_call_for_exit_guard(Kernel, :abort) is already active via the before hook.
+
+    it "throws :exit_guard with 'abort (no args)' when called without a message" do
+      result = catch(:exit_guard) { Kernel.abort }
+      expect(result[:call]).to eq("abort (no args)")
+    end
+
+    it "includes the message when called with a short message" do
+      result = catch(:exit_guard) { Kernel.abort("something went wrong") }
+      expect(result[:call]).to eq('abort("something went wrong")')
+    end
+
+    it "includes the call location in the thrown data" do
+      result = catch(:exit_guard) { Kernel.abort }
+      expect(result[:location]).to include("helpers_spec.rb")
+    end
+  end
 end
