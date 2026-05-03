@@ -2,7 +2,7 @@ require_relative "exit_guard/version"
 
 module RSpec
   module ExitGuard
-    ExitCalled = Class.new(Exception)
+    ExitCalled = Class.new(Exception) # standard:disable Lint/InheritException
 
     module Helpers
       def mock_exit_call_for_exit_guard(target, method_name)
