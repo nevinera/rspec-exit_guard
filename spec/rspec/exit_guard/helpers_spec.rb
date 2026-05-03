@@ -107,6 +107,34 @@ RSpec.describe RSpec::ExitGuard::Helpers do
     end
   end
 
+  describe "#mock_exit_module_call_for_exit_guard with Process.exit" do
+    # mock_exit_module_call_for_exit_guard(Process, :exit) is already active via the before hook.
+
+    it "throws :exit_guard with a formatted call string" do
+      result = catch(:exit_guard) { Process.exit(42) }
+      expect(result[:call]).to eq("exit(42)")
+    end
+
+    it "includes the call location in the thrown data" do
+      result = catch(:exit_guard) { Process.exit(0) }
+      expect(result[:location]).to include("helpers_spec.rb")
+    end
+  end
+
+  describe "#mock_exit_module_call_for_exit_guard with Process.exit!" do
+    # mock_exit_module_call_for_exit_guard(Process, :exit!) is already active via the before hook.
+
+    it "throws :exit_guard with a formatted call string" do
+      result = catch(:exit_guard) { Process.exit!(1) }
+      expect(result[:call]).to eq("exit!(1)")
+    end
+
+    it "includes the call location in the thrown data" do
+      result = catch(:exit_guard) { Process.exit!(0) }
+      expect(result[:location]).to include("helpers_spec.rb")
+    end
+  end
+
   describe "#mock_exit_module_call_for_exit_guard with Kernel.abort" do
     # mock_exit_module_call_for_exit_guard(Kernel, :abort) is already active via the before hook.
 

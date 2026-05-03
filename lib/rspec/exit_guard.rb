@@ -63,5 +63,7 @@ RSpec.configure do |config|
     mock_exit_module_call_for_exit_guard(Kernel, :exit)
     mock_exit_module_call_for_exit_guard(Kernel, :exit!)
     mock_exit_module_call_for_exit_guard(Kernel, :abort)
+    mock_exit_module_call_for_exit_guard(Process, :exit)
+    mock_exit_module_call_for_exit_guard(Process, :exit!)
   end
 end
