@@ -32,6 +32,14 @@ RSpec.describe RSpec::NoWayOut do
       expect(output).to include("1 failure")
     end
 
+    it "includes the exit code in the failure message" do
+      expect(output).to include("exit(0)")
+    end
+
+    it "includes the call site in the failure message" do
+      expect(output).to include("exit_zero_with_no_way_out_spec.rb")
+    end
+
     it "still runs the subsequent example" do
       expect(output).to include("2 examples")
     end
