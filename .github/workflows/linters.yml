@@ -1,0 +1,24 @@
+name: Linters
+
+on: [push]
+
+jobs:
+  Linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3
+          bundler-cache: true
+
+      - name: Run StandardRB
+        run: bundle exec standardrb
+
+      - name: Run Rubocop (complexity checks)
+        run: bundle exec rubocop --parallel
+
+      - name: Run Markdownlint
+        run: bundle exec mdl .
