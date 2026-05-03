@@ -1,4 +1,4 @@
-# RSpec::NoWayOut
+# RSpec::ExitGuard
 
 RSpec carefully does not rescue SystemExit, to avoid interfering with language
 mechanisms, and for philosophical reasons. The downside of that decision is that
@@ -11,9 +11,9 @@ ran_.
 
 If you find your coverage numbers fluctuating wildly, or the number of tests that
 get run changing between runs, this is more than likely your problem. There are
-several ways to detect this situation, but this plugin implemented _my_ favorite
-of them - we're going to mock exit/abort in an around-each hook, throw a symbol,
-and catch it back in the hook, producing a failure for the test in question.
+several ways to detect this situation, but this plugin implements _my_ favorite
+of them - we mock exit/abort in a before-each hook, throw a symbol, and catch it
+in an around-each hook, producing a failure for the test in question.
 
 ## Usage
 
@@ -22,7 +22,7 @@ in `spec_helper.rb`:
 
 ```ruby
 require "rspec"
-require "rspec/no_way_out"
+require "rspec/exit_guard"
 ```
 
 If you then call `exit` or `abort` from inside tested code, you'll see an appropriate

@@ -1,4 +1,4 @@
-require "rspec/no_way_out"
+require "rspec/exit_guard"
 
 RSpec.describe "exit! protection" do
   it "calls exit!(1)" do

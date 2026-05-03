@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe RSpec::NoWayOut do
+RSpec.describe RSpec::ExitGuard do
   it "has a version" do
     expect(described_class::VERSION).to match(/\A\d+\.\d+\.\d+\z/)
   end
@@ -20,7 +20,7 @@ RSpec.describe RSpec::NoWayOut do
   end
 
   describe "with the plugin, when exit!(1) is called from code under test" do
-    let(:result) { run_fixture("exit_bang_with_no_way_out_spec.rb") }
+    let(:result) { run_fixture("exit_bang_with_exit_guard_spec.rb") }
     let(:output) { result[0] }
     let(:exit_code) { result[1] }
 
@@ -41,12 +41,12 @@ RSpec.describe RSpec::NoWayOut do
     end
 
     it "includes the call site in the failure message" do
-      expect(output).to include("exit_bang_with_no_way_out_spec.rb")
+      expect(output).to include("exit_bang_with_exit_guard_spec.rb")
     end
   end
 
   describe "with the plugin, when abort is called from code under test" do
-    let(:result) { run_fixture("abort_with_no_way_out_spec.rb") }
+    let(:result) { run_fixture("abort_with_exit_guard_spec.rb") }
     let(:output) { result[0] }
     let(:exit_code) { result[1] }
 
@@ -67,12 +67,12 @@ RSpec.describe RSpec::NoWayOut do
     end
 
     it "includes the call site in the failure message" do
-      expect(output).to include("abort_with_no_way_out_spec.rb")
+      expect(output).to include("abort_with_exit_guard_spec.rb")
     end
   end
 
   describe "with the plugin, when exit(0) is called from code under test" do
-    let(:result) { run_fixture("exit_zero_with_no_way_out_spec.rb") }
+    let(:result) { run_fixture("exit_zero_with_exit_guard_spec.rb") }
     let(:output) { result[0] }
     let(:exit_code) { result[1] }
 
@@ -89,7 +89,7 @@ RSpec.describe RSpec::NoWayOut do
     end
 
     it "includes the call site in the failure message" do
-      expect(output).to include("exit_zero_with_no_way_out_spec.rb")
+      expect(output).to include("exit_zero_with_exit_guard_spec.rb")
     end
 
     it "still runs the subsequent example" do

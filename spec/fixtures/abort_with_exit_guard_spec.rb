@@ -1,4 +1,4 @@
-require "rspec/no_way_out"
+require "rspec/exit_guard"
 
 RSpec.describe "abort protection" do
   it "calls abort" do

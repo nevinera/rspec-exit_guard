@@ -1,20 +1,20 @@
-require_relative "lib/rspec/no_way_out/version"
+require_relative "lib/rspec/exit_guard/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "rspec-no_way_out"
-  spec.version = RSpec::NoWayOut::VERSION
+  spec.name = "rspec-exit_guard"
+  spec.version = RSpec::ExitGuard::VERSION
   spec.authors = ["Eric Mueller"]
   spec.email = ["nevinera@gmail.com"]
 
   spec.summary = "Protect your RSpec suite from exit calls in code under test"
   spec.description = <<~DESC
-    rspec-no_way_out guards your test suite against accidental termination caused
+    rspec-exit_guard guards your test suite against accidental termination caused
     by exit, abort, or similar calls in the code under test. Instead of letting
     the process exit (potentially silently, with a passing status), it catches
     those calls and turns them into test failures.
   DESC
 
-  spec.homepage = "https://github.com/nevinera/rspec-no_way_out"
+  spec.homepage = "https://github.com/nevinera/rspec-exit_guard"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2.0"
 

@@ -1,5 +1,5 @@
 module RSpec
-  module NoWayOut
+  module ExitGuard
     VERSION = "0.1.0"
   end
 end

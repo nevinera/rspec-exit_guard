@@ -11,7 +11,7 @@ if ENV["SIMPLECOV"]
 end
 
 gem_root = File.expand_path("..", __dir__)
-require File.join(gem_root, "lib", "rspec", "no_way_out")
+require File.join(gem_root, "lib", "rspec", "exit_guard")
 
 support_glob = File.join(gem_root, "spec", "support", "**", "*.rb")
 Dir[support_glob].sort.each { |f| require f }
