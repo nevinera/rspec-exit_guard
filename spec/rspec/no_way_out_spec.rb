@@ -19,6 +19,32 @@ RSpec.describe RSpec::NoWayOut do
     end
   end
 
+  describe "with the plugin, when exit!(1) is called from code under test" do
+    let(:result) { run_fixture("exit_bang_with_no_way_out_spec.rb") }
+    let(:output) { result[0] }
+    let(:exit_code) { result[1] }
+
+    it "does not silently succeed" do
+      expect(exit_code).not_to eq(0)
+    end
+
+    it "reports the exit! as a failure" do
+      expect(output).to include("1 failure")
+    end
+
+    it "still runs the subsequent example" do
+      expect(output).to include("2 examples")
+    end
+
+    it "includes the exit! code in the failure message" do
+      expect(output).to include("exit!(1)")
+    end
+
+    it "includes the call site in the failure message" do
+      expect(output).to include("exit_bang_with_no_way_out_spec.rb")
+    end
+  end
+
   describe "with the plugin, when exit(0) is called from code under test" do
     let(:result) { run_fixture("exit_zero_with_no_way_out_spec.rb") }
     let(:output) { result[0] }
