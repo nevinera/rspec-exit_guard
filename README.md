@@ -28,8 +28,20 @@ require "rspec/exit_guard"
 If you then call `exit` or `abort` from inside tested code, you'll see an appropriate
 failure message, and the rest of the tests will still run:
 
-```bash
-TO BE ADDED LATER
+```text
+F.
+
+Failures:
+
+  1) MyService#run exits when the config file is missing
+     Failure/Error:
+       raise RSpec::ExitGuard::ExitCalled,
+         "#{exit_call[:call]} called at #{exit_call[:location]}"
+
+       exit(0) called at ./spec/my_service_spec.rb:12:in `block (2 levels) in <top (required)>'
+
+Finished in 0.004 seconds (files took 0.5 seconds to load)
+2 examples, 1 failure
 ```
 
 ## Performance
