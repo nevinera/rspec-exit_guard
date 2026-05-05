@@ -12,8 +12,9 @@ ran_.
 If you find your coverage numbers fluctuating wildly, or the number of tests that
 get run changing between runs, this is more than likely your problem. There are
 several ways to detect this situation, but this plugin implements _my_ favorite
-of them - we mock exit/abort in a before-each hook, throw a symbol, and catch it
-in an around-each hook, producing a failure for the test in question.
+of them - we mock exit/abort in a before-each hook, raise an Exception (which rspec
+will not catch, and nor should you), and catch it in an around-each hook, producing
+a failure for the test in question.
 
 ## Usage
 
